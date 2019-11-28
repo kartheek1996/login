@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
+import re
 
 from .models import Register
 from .forms import Registerform
@@ -30,8 +31,13 @@ def savedata(request):
 
             else:
                 if password == Cpassword:
-                    Register(username=(fname + lname).lower(), password=password, email=email.lower()).save()
-                    return render(request, "main.html")
+                    if re.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$", password):
+
+                        Register(username=(fname + lname).lower(), password=password, email=email.lower()).save()
+                        return render(request, "main.html")
+                    else:
+                        messages.info(request, "password must have uppercase,lower case,special character and digit")
+
                 else:
                     messages.info(request, "password not matching")
                     redirect("register")
