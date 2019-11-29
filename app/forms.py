@@ -5,7 +5,7 @@ from django.core.validators import RegexValidator
 from .models import Register
 
 import time
-import re
+# import re
 
 YEARS = [x for x in range(1940, int(time.strftime("%Y")) + 1)]
 

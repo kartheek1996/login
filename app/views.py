@@ -36,7 +36,7 @@ def savedata(request):
                         Register(username=(fname + lname).lower(), password=password, email=email.lower()).save()
                         return render(request, "main.html")
                     else:
-                        messages.info(request, "password must have uppercase,lower case,special character and digit")
+                        messages.info(request, "password must have one uppercase,lower case,special character and digit")
 
                 else:
                     messages.info(request, "password not matching")
